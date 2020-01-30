@@ -13,7 +13,7 @@ use RccLight\Client\Configuration;
 use RccLight\Client\HeaderSelector;
 use RccLight\Client\ObjectSerializer;
 
-class ReporteDeCreditoConsolidadoLightFICOScorePLDApi
+class ReporteDeCrditoConsolidadoLightConFICOScoreApi
 {
     
     protected $client;
@@ -1117,16 +1117,16 @@ class ReporteDeCreditoConsolidadoLightFICOScorePLDApi
         );
     }
     
-    public function getPLD($folio_consulta, $x_api_key, $username, $password)
+    public function getMensajes($folio_consulta, $x_api_key, $username, $password)
     {
-        list($response) = $this->getPLDWithHttpInfo($folio_consulta, $x_api_key, $username, $password);
+        list($response) = $this->getMensajesWithHttpInfo($folio_consulta, $x_api_key, $username, $password);
         return $response;
     }
     
-    public function getPLDWithHttpInfo($folio_consulta, $x_api_key, $username, $password)
+    public function getMensajesWithHttpInfo($folio_consulta, $x_api_key, $username, $password)
     {
-        $returnType = '\RccLight\Client\Model\PersonasPLD';
-        $request = $this->getPLDRequest($folio_consulta, $x_api_key, $username, $password);
+        $returnType = '\RccLight\Client\Model\Mensajes';
+        $request = $this->getMensajesRequest($folio_consulta, $x_api_key, $username, $password);
         try {
             $options = $this->createHttpClientOption();
             try {
@@ -1171,7 +1171,7 @@ class ReporteDeCreditoConsolidadoLightFICOScorePLDApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\RccLight\Client\Model\PersonasPLD',
+                        '\RccLight\Client\Model\Mensajes',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1237,9 +1237,9 @@ class ReporteDeCreditoConsolidadoLightFICOScorePLDApi
         }
     }
     
-    public function getPLDAsync($folio_consulta, $x_api_key, $username, $password)
+    public function getMensajesAsync($folio_consulta, $x_api_key, $username, $password)
     {
-        return $this->getPLDAsyncWithHttpInfo($folio_consulta, $x_api_key, $username, $password)
+        return $this->getMensajesAsyncWithHttpInfo($folio_consulta, $x_api_key, $username, $password)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1247,10 +1247,10 @@ class ReporteDeCreditoConsolidadoLightFICOScorePLDApi
             );
     }
     
-    public function getPLDAsyncWithHttpInfo($folio_consulta, $x_api_key, $username, $password)
+    public function getMensajesAsyncWithHttpInfo($folio_consulta, $x_api_key, $username, $password)
     {
-        $returnType = '\RccLight\Client\Model\PersonasPLD';
-        $request = $this->getPLDRequest($folio_consulta, $x_api_key, $username, $password);
+        $returnType = '\RccLight\Client\Model\Mensajes';
+        $request = $this->getMensajesRequest($folio_consulta, $x_api_key, $username, $password);
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
@@ -1287,29 +1287,29 @@ class ReporteDeCreditoConsolidadoLightFICOScorePLDApi
             );
     }
     
-    protected function getPLDRequest($folio_consulta, $x_api_key, $username, $password)
+    protected function getMensajesRequest($folio_consulta, $x_api_key, $username, $password)
     {
         if ($folio_consulta === null || (is_array($folio_consulta) && count($folio_consulta) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $folio_consulta when calling getPLD'
+                'Missing the required parameter $folio_consulta when calling getMensajes'
             );
         }
         if ($x_api_key === null || (is_array($x_api_key) && count($x_api_key) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $x_api_key when calling getPLD'
+                'Missing the required parameter $x_api_key when calling getMensajes'
             );
         }
         if ($username === null || (is_array($username) && count($username) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $username when calling getPLD'
+                'Missing the required parameter $username when calling getMensajes'
             );
         }
         if ($password === null || (is_array($password) && count($password) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $password when calling getPLD'
+                'Missing the required parameter $password when calling getMensajes'
             );
         }
-        $resourcePath = '/{folioConsulta}/pld';
+        $resourcePath = '/{folioConsulta}/mensajes';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -1497,6 +1497,56 @@ class ReporteDeCreditoConsolidadoLightFICOScorePLDApi
             }
             throw $e;
         }
+    }
+    
+    public function getReporteAsync($x_api_key, $username, $password, $body, $x_full_report = 'false')
+    {
+        return $this->getReporteAsyncWithHttpInfo($x_api_key, $username, $password, $body, $x_full_report)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+    
+    public function getReporteAsyncWithHttpInfo($x_api_key, $username, $password, $body, $x_full_report = 'false')
+    {
+        $returnType = '\RccLight\Client\Model\Respuesta';
+        $request = $this->getReporteRequest($x_api_key, $username, $password, $body, $x_full_report);
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    $responseBody = $response->getBody();
+                    if ($returnType === '\SplFileObject') {
+                        $content = $responseBody;
+                    } else {
+                        $content = $responseBody->getContents();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        $response->getBody()
+                    );
+                }
+            );
     }
     
     protected function getReporteRequest($x_api_key, $username, $password, $body, $x_full_report = 'false')

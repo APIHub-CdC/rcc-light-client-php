@@ -49,6 +49,7 @@ class CatalogoTipoCredito
     const OT = 'OT';
     const NC = 'NC';
     
+    
     public static function getAllowableEnumValues()
     {
         return [
