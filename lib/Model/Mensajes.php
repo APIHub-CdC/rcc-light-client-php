@@ -5,18 +5,18 @@ namespace RccLight\Client\Model;
 use \ArrayAccess;
 use \RccLight\Client\ObjectSerializer;
 
-class PersonasPLD implements ModelInterface, ArrayAccess
+class Mensajes implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
     
-    protected static $apihubModelName = 'PersonasPLD';
+    protected static $apihubModelName = 'Mensajes';
     
     protected static $apihubTypes = [
-        'pld' => '\RccLight\Client\Model\PersonaPLD[]'
+        'mensajes' => '\RccLight\Client\Model\Mensaje[]'
     ];
     
     protected static $apihubFormats = [
-        'pld' => null
+        'mensajes' => null
     ];
     
     public static function apihubTypes()
@@ -30,15 +30,15 @@ class PersonasPLD implements ModelInterface, ArrayAccess
     }
     
     protected static $attributeMap = [
-        'pld' => 'pld'
+        'mensajes' => 'mensajes'
     ];
     
     protected static $setters = [
-        'pld' => 'setPld'
+        'mensajes' => 'setMensajes'
     ];
     
     protected static $getters = [
-        'pld' => 'getPld'
+        'mensajes' => 'getMensajes'
     ];
     
     public static function attributeMap()
@@ -67,7 +67,7 @@ class PersonasPLD implements ModelInterface, ArrayAccess
     
     public function __construct(array $data = null)
     {
-        $this->container['pld'] = isset($data['pld']) ? $data['pld'] : null;
+        $this->container['mensajes'] = isset($data['mensajes']) ? $data['mensajes'] : null;
     }
     
     public function listInvalidProperties()
@@ -81,14 +81,14 @@ class PersonasPLD implements ModelInterface, ArrayAccess
         return count($this->listInvalidProperties()) === 0;
     }
     
-    public function getPld()
+    public function getMensajes()
     {
-        return $this->container['pld'];
+        return $this->container['mensajes'];
     }
     
-    public function setPld($pld)
+    public function setMensajes($mensajes)
     {
-        $this->container['pld'] = $pld;
+        $this->container['mensajes'] = $mensajes;
         return $this;
     }
     

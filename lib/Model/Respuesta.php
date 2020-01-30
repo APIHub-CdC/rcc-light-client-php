@@ -13,24 +13,30 @@ class Respuesta implements ModelInterface, ArrayAccess
     
     protected static $apihubTypes = [
         'folio_consulta' => 'string',
-        'persona' => '\RccLight\Client\Model\PersonaRespuesta',
+        'folio_consulta_otorgante' => 'string',
+        'clave_otorgante' => 'string',
+        'declaraciones_consumidor' => 'string',
+        'persona' => '\RccLight\Client\Model\Persona',
         'consultas' => '\RccLight\Client\Model\Consulta[]',
         'creditos' => '\RccLight\Client\Model\Credito[]',
         'domicilios' => '\RccLight\Client\Model\Domicilio[]',
         'empleos' => '\RccLight\Client\Model\Empleo[]',
         'scores' => '\RccLight\Client\Model\Score[]',
-        'pld' => '\RccLight\Client\Model\PersonaPLD[]'
+        'mensajes' => '\RccLight\Client\Model\Mensaje[]'
     ];
     
     protected static $apihubFormats = [
         'folio_consulta' => null,
+        'folio_consulta_otorgante' => null,
+        'clave_otorgante' => null,
+        'declaraciones_consumidor' => null,
         'persona' => null,
         'consultas' => null,
         'creditos' => null,
         'domicilios' => null,
         'empleos' => null,
         'scores' => null,
-        'pld' => null
+        'mensajes' => null
     ];
     
     public static function apihubTypes()
@@ -45,35 +51,44 @@ class Respuesta implements ModelInterface, ArrayAccess
     
     protected static $attributeMap = [
         'folio_consulta' => 'folioConsulta',
+        'folio_consulta_otorgante' => 'folioConsultaOtorgante',
+        'clave_otorgante' => 'claveOtorgante',
+        'declaraciones_consumidor' => 'declaracionesConsumidor',
         'persona' => 'persona',
         'consultas' => 'consultas',
         'creditos' => 'creditos',
         'domicilios' => 'domicilios',
         'empleos' => 'empleos',
         'scores' => 'scores',
-        'pld' => 'pld'
+        'mensajes' => 'mensajes'
     ];
     
     protected static $setters = [
         'folio_consulta' => 'setFolioConsulta',
+        'folio_consulta_otorgante' => 'setFolioConsultaOtorgante',
+        'clave_otorgante' => 'setClaveOtorgante',
+        'declaraciones_consumidor' => 'setDeclaracionesConsumidor',
         'persona' => 'setPersona',
         'consultas' => 'setConsultas',
         'creditos' => 'setCreditos',
         'domicilios' => 'setDomicilios',
         'empleos' => 'setEmpleos',
         'scores' => 'setScores',
-        'pld' => 'setPld'
+        'mensajes' => 'setMensajes'
     ];
     
     protected static $getters = [
         'folio_consulta' => 'getFolioConsulta',
+        'folio_consulta_otorgante' => 'getFolioConsultaOtorgante',
+        'clave_otorgante' => 'getClaveOtorgante',
+        'declaraciones_consumidor' => 'getDeclaracionesConsumidor',
         'persona' => 'getPersona',
         'consultas' => 'getConsultas',
         'creditos' => 'getCreditos',
         'domicilios' => 'getDomicilios',
         'empleos' => 'getEmpleos',
         'scores' => 'getScores',
-        'pld' => 'getPld'
+        'mensajes' => 'getMensajes'
     ];
     
     public static function attributeMap()
@@ -103,18 +118,24 @@ class Respuesta implements ModelInterface, ArrayAccess
     public function __construct(array $data = null)
     {
         $this->container['folio_consulta'] = isset($data['folio_consulta']) ? $data['folio_consulta'] : null;
+        $this->container['folio_consulta_otorgante'] = isset($data['folio_consulta_otorgante']) ? $data['folio_consulta_otorgante'] : null;
+        $this->container['clave_otorgante'] = isset($data['clave_otorgante']) ? $data['clave_otorgante'] : null;
+        $this->container['declaraciones_consumidor'] = isset($data['declaraciones_consumidor']) ? $data['declaraciones_consumidor'] : null;
         $this->container['persona'] = isset($data['persona']) ? $data['persona'] : null;
         $this->container['consultas'] = isset($data['consultas']) ? $data['consultas'] : null;
         $this->container['creditos'] = isset($data['creditos']) ? $data['creditos'] : null;
         $this->container['domicilios'] = isset($data['domicilios']) ? $data['domicilios'] : null;
         $this->container['empleos'] = isset($data['empleos']) ? $data['empleos'] : null;
         $this->container['scores'] = isset($data['scores']) ? $data['scores'] : null;
-        $this->container['pld'] = isset($data['pld']) ? $data['pld'] : null;
+        $this->container['mensajes'] = isset($data['mensajes']) ? $data['mensajes'] : null;
     }
     
     public function listInvalidProperties()
     {
         $invalidProperties = [];
+        if (!is_null($this->container['declaraciones_consumidor']) && (mb_strlen($this->container['declaraciones_consumidor']) > 100)) {
+            $invalidProperties[] = "invalid value for 'declaraciones_consumidor', the character length must be smaller than or equal to 100.";
+        }
         return $invalidProperties;
     }
     
@@ -131,6 +152,42 @@ class Respuesta implements ModelInterface, ArrayAccess
     public function setFolioConsulta($folio_consulta)
     {
         $this->container['folio_consulta'] = $folio_consulta;
+        return $this;
+    }
+    
+    public function getFolioConsultaOtorgante()
+    {
+        return $this->container['folio_consulta_otorgante'];
+    }
+    
+    public function setFolioConsultaOtorgante($folio_consulta_otorgante)
+    {
+        $this->container['folio_consulta_otorgante'] = $folio_consulta_otorgante;
+        return $this;
+    }
+    
+    public function getClaveOtorgante()
+    {
+        return $this->container['clave_otorgante'];
+    }
+    
+    public function setClaveOtorgante($clave_otorgante)
+    {
+        $this->container['clave_otorgante'] = $clave_otorgante;
+        return $this;
+    }
+    
+    public function getDeclaracionesConsumidor()
+    {
+        return $this->container['declaraciones_consumidor'];
+    }
+    
+    public function setDeclaracionesConsumidor($declaraciones_consumidor)
+    {
+        if (!is_null($declaraciones_consumidor) && (mb_strlen($declaraciones_consumidor) > 100)) {
+            throw new \InvalidArgumentException('invalid length for $declaraciones_consumidor when calling Respuesta., must be smaller than or equal to 100.');
+        }
+        $this->container['declaraciones_consumidor'] = $declaraciones_consumidor;
         return $this;
     }
     
@@ -200,14 +257,14 @@ class Respuesta implements ModelInterface, ArrayAccess
         return $this;
     }
     
-    public function getPld()
+    public function getMensajes()
     {
-        return $this->container['pld'];
+        return $this->container['mensajes'];
     }
     
-    public function setPld($pld)
+    public function setMensajes($mensajes)
     {
-        $this->container['pld'] = $pld;
+        $this->container['mensajes'] = $mensajes;
         return $this;
     }
     

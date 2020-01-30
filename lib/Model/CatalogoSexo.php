@@ -9,6 +9,7 @@ class CatalogoSexo
     const F = 'F';
     const M = 'M';
     
+    
     public static function getAllowableEnumValues()
     {
         return [
