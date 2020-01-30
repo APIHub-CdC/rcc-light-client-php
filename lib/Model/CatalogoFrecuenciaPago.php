@@ -18,6 +18,7 @@ class CatalogoFrecuenciaPago
     const T = 'T';
     const U = 'U';
     
+    
     public static function getAllowableEnumValues()
     {
         return [

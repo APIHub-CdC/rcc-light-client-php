@@ -10,6 +10,7 @@ class CatalogoMoneda
     const US = 'US';
     const UD = 'UD';
     
+    
     public static function getAllowableEnumValues()
     {
         return [

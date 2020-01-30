@@ -40,7 +40,7 @@ class CatalogoPrevencion
     const SG = 'SG';
     const UP = 'UP';
     const VR = 'VR';
-    
+    const NULL = '';
     
     public static function getAllowableEnumValues()
     {
@@ -79,6 +79,7 @@ class CatalogoPrevencion
             self::SG,
             self::UP,
             self::VR,
+            self::NULL,
         ];
     }
 }
